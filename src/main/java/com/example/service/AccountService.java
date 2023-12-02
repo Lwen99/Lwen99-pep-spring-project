@@ -22,11 +22,9 @@ public class AccountService {
         return accountRepository.existsById(id);
     }
     public Account createAccount(Account account){
-
-        for(Account acc : this.getAllAccounts()){
-            if(acc.getUsername().equals(account.getUsername()) ){
-                return acc;
-           }
+        Account acc = accountRepository.findByusername(account.getUsername());
+        if(acc != null){
+            return acc;
         }
         if(account.getUsername() != "" && account.getPassword().length() >= 4){
             return accountRepository.save(account);
@@ -37,10 +35,9 @@ public class AccountService {
     }
 
     public Account authenticateAccount(Account account){
-        for(Account acc : this.getAllAccounts()){
-            if(acc.getUsername().equals(account.getUsername()) && acc.getPassword().equals(account.getPassword())){
-                return acc;
-            }
+        Account acc = accountRepository.findByusername(account.getUsername());
+        if(acc != null && acc.getPassword().equals(account.getPassword())){
+            return acc;
         }
         return null;
     }
