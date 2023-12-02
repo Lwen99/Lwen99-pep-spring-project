@@ -23,8 +23,6 @@ public class MessageService {
         return messageRepository.findAll();
     }
     
-
-
     public Message createMessage(Message message, AccountService accountService){
 
        
@@ -32,11 +30,7 @@ public class MessageService {
             && message.getMessage_text().length() <= 255){
             return messageRepository.save(message);
         }
-        
-        
-        
         return null;
-
     }
 
     public Message getMessageById(Integer id){
